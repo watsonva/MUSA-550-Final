@@ -1,0 +1,74 @@
+# 1. Explore Data Distribution
+
+
+## 1.1 Data Collection
+
+Initially, we imported both Airbnb data and neighborhood data for San Francisco from InsideAirbnb. During this process, we obtained Airbnb data comprising 7,418 rows and 75 columns, and neighborhood data consisting of 36 rows and 3 columns.
+
+
+## 1.2 Data cleaning, formatting and transformation
+
+Since the raw Airbnb dataset has too many features that we do not need. I filtered out 22 features in the following 7 categories:
+
+1. **index** :'id', 'neighbourhood_cleansed',
+
+2. **host info** :'host_since', 'host_response_rate', 'host_acceptance_rate', 'host_identity_verified',
+
+3. **location info** :'latitude', 'longitude',
+
+4. **room info** : 'room_type', 'beds',
+
+5. **reviews info** : 'number_of_reviews', 'number_of_reviews_l30d', 'review_scores_rating', 'last_review', 'reviews_per_month',
+
+6. **core info that users mainly make decision on** : 'price', 'accommodates', 'instant_bookable',
+
+7. **other** : 'calculated_host_listings_count', 'minimum_nights', 'maximum_nights'
+
+After removing all rows with missing data from the dataset, I perform additional feature transformations to improve its distribution. For instance, I convert the 'host_since' column from a date format into a numeric value by calculating the difference between the current date and the 'host_since' date. Additionally, I convert the values within the 'host_response_rate' and 'host_acceptance_rate' columns from percentages to numeric formats. To better understand the price sensitivity, I calculate the price per person by dividing the "accommodates" value by the "price."
+
+
+## 1.3 Table Distribution of San Franscisco Airbnb Data
+
+
+![](diagram/distribution_price.png)
+
+
+Firstly, I explore general relationship between price and count in San Fransciso area. As we can see from the graph above, the majority of the listings are clustered at the lower end of the price spectrum, with a peak occurring just around the $100 mark. The number of listings decreases as the price increases, with very few listings priced above $600. Without surprises, affordable listings are more prevalent in San Francisco's Airbnb market, with luxury or higher-priced accommodations being much less common.
+
+
+
+![](diagram/host_year_count.png)
+
+Next, we investigate the Airbnb host count distribution by room type and host year (the year that the host started the Airbnb). From the graph, we can observe that the count of hosts for entire homes/apartments saw a sharp increase around 2010, peaking around 2013, followed by a decline and then somewhat leveling off. The trend for private rooms shows a gradual increase with some fluctuations but does not reach the peak of entire homes/apartments. Shared rooms and hotel rooms have comparatively low host counts throughout the years, with shared rooms showing a slight increase over time and hotel rooms remaining relatively flat and close to zero.
+
+We can get that entire homes/apartments have been the most popular type of accommodation among Airbnb hosts in this period, while hotel rooms have been the least popular. 
+
+
+![](diagram/distribution_price_byroomtype.png)
+
+To better understand spread and central tendencies of Airbnb prices in San Francisco according to the type of rooms, I plot a box graph above. From the graph, it's evident that Entire homes/apartments have the highest median price, as well as the widest range of prices, indicating a large variability in how entire homes/apartments are priced. The median price for Private rooms is significantly lower than for Entire homes/apartments, with a smaller interquartile range, suggesting less variability in pricing. Shared rooms have the lowest median price and the smallest interquartile range, indicating a narrow band of prices for these listings. At last, hotel rooms have a similar median price to private rooms but show less variability and fewer outliers than entire homes/apartments.
+
+
+![](diagram/distribution_price_byreviews.png)
+
+What about the effect from reviews? This time, I add `numbers of reviews` as a factor to investigate its effect for price by room type in scatter plot. From the distribution, it seems that entire homes/apartments are the most numerous and also show a wide range of prices and review counts. Private rooms are numerous as well, but generally have lower prices than entire homes/apartments. Shared rooms and hotel rooms are less frequent and tend to cluster at lower review counts and prices. Obviously, according to this graph，listings with a higher number of reviews do not necessarily charge higher prices. we will investigate more on quality of review instead of quantity in later section.
+
+
+
+## 1.4 Spatial  Distribution of San Franscisco Airbnb Data
+
+
+![](diagram/spatial_distribution.html)
+
+Since location also plays an important role during Airbnb's users' decision process, this time we explore spatial distribution. Via the points accumulated above, we can clearly see that Airbnb is a widely used service in San Francisco, with listings spread across the city, rather than concentrated in a single area.
+
+
+![](diagram/spatial_distribution_bynhood.html)
+
+This way we explore the distribution by mean of each neighbourhood, similar to the distribution shown in the previous plot, almost every neighborhood has an Airbnb presence, and the differences in quantity are relatively small.
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+# 3. UI Design
+
+
+## 3.1 Current User Interface
+
+
+![](../images/UI/1_former_UI.png)
+
+Airbnb’s existing filter system is complex and underused. Furthermore, it lacks a clear price reference, making it challenging for users to assess room options effectively.
+
+
+## 3.2 Our Solution
+
+![](../images/UI/2_strategy.png)
+
+Our solution enhances the Airbnb experience. Users typically follow a simple process: log in, search, and decide. Trrendy, as an Airbnb plugin, adds two crucial steps: input information into our tool and compare prices. This approach ensures more informed decisions.
+
+
+
+## 3.3 Future User Interface
+
+![](../images/UI/3_future_UI_1.png)
+We propose adding an input window to Airbnb’s interface, allowing users to specify criteria like mood, budget, and location. This feature aims to replace the less efficient existing filter system.
+
+
+![](../images/UI/3_future_UI_2.png)
+
+Our interface will also display suggested prices next to Airbnb's listings, using red and green color codes. Red indicates a price higher than our suggestion, with the intensity indicating the premium. Green suggests a lower price, offering potential savings.
+
+
+
+![](../images/UI/3_future_UI_3.png)
+
+Moreover, Trrendy will also provide direct recommendations on whether a listed price is excessively high or exceptionally low, aiding users in making better decisions.
+
+
+
+
+
+
+
+
+
+

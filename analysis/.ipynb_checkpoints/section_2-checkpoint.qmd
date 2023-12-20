@@ -1,0 +1,142 @@
+# 2. Predict Airbnb Price
+
+To predict Airbnb Price, we will go through the following 5 parts:
+
+1. Data Exploratory
+
+2. Feature Engineering
+
+3. Feature Collect
+
+4. Model Building
+
+5. Predict
+
+
+## 2.1 Data Exploratory
+
+![](diagram/price_histogram.png)
+
+Firstly, we analyze the distribution of Airbnb prices via two histograms of Prices & log-transformed prices and a Quantile-Quantile. Through all these three plots, we get that while most prices are clustered at a lower range, there is significant variation and potentially many outliers on the higher end. To avoid unaccuracy of price predicting, we will delete some outliers and NA values before the next feature engineering section.
+
+
+![](diagram/detail/price_average_nhood)
+
+Again, we plot spatial distribution of Airbnb price in the form of both points and neighbourhood. A high spatial autocorrelation phenomenon can be easily caught above, which will help us do a better feature selection in the next step.
+
+
+
+## 2.2 Feature Engineering
+
+### 2.2.1 Current Feature Investigation
+
+![](diagram/feature_distribution.png)
+
+After filtering all NA values, we get a nice distribution of features above via `missingno` package. 
+
+### 2.2.2 Feature Collect
+
+Since Airbnb price will not only affected by propeties itself, it can also affected by nearby neighborhood properties. We select the following six factors for our feature preparation:
+
+- 1. Crime
+- 2. 311
+- 3. Civic Art Collection
+- 4. Recreation and Parks Properties
+- 5. Bicycle Parking
+- 6. Restaurant
+
+
+For each feature collect process, we go through these 3 steps:
+
+- 1. Get data during URL
+- 2. Extract 'Latitude' and  'Longitude' from the original dataset
+- 3. Convert the dataset into geodataframe
+
+
+
+### 2.2.3 KNN methods of features
+
+To get a better details spatail learning, we add KNN method of six features via the following 6 steps
+
+- Step1: Extract x/y from crime
+- Step2: Initialize the algorithm
+- Step3: Fit the algorithm on the "neighbors" dataset
+- Step4: Get distances for airbnb to 
+- Step5: Average distance to neighbors
+- Step6: Set zero distances to be small, but nonzero
+
+
+
+
+![](diagram/features_collected.png)
+
+
+
+
+## 2.3 Correlation Analysis
+
+![](diagram/correlation.png)
+
+
+
+Have both Airbnb property feature and nearby neighbourhood feature prepared, we did a correlation analysis as above. It seems `crime` , `311 call`, and `art` data has strong correlations while other features not, which can be a good indicator for future model iteration. 
+
+
+
+## 2.4 Model Fit
+
+During model fit process, we choose randomforest regression model and mainly go through the following steps:
+
+- 1. Split data by 70% for training set and 30%  for test set.
+- 2. set "price" as the target labels for both train and test sets
+- 3. Set up a pipeline that includes both numerical columns and categorical columns
+- 4. Initialize the pipeline
+- 5. Fit the model with training set
+
+Next, We got the following testing score by implement the baseline model on test set.
+
+Testing Score = 0.34280431620306995
+
+The Score is moderate.
+
+
+
+For a better model iteration, we need to know more about the feature importance, as we can see from the plot below, the top 5 important features are:
+
+- 1. accommodates
+- 2. beds
+- 3. LaggedPrice
+- 4. minimum_nights
+- 5. log_crime
+
+![](diagram/importance_bar.html)
+
+
+## 2.5 Model Evaluation
+
+For model evaluation steps, we calculated the predicted price, percent error as well as absolute percent error for each observation. To better understand the spatial autocorrelation, we plotted both the spatial distribution of the percent error and the mean absolute percet error by neighborhood in test set. 
+
+
+![](diagram/model_validation.png)
+
+
+From the plot above, we can see that the errors of prediction Airbnb price do have few spatial cluster, which means the effects of spatial autocorrelation still exist, which is in line with the observations we made in the previous correlation analysis stage.
+
+In conclusion, although the model itself still has improvement space, we have identified the flaws and the direction for iteration. After removing some interrelated features and adding more features, our model can better assist users in predicting house prices, while also helping hosts make better adjustments and plans for their properties.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
